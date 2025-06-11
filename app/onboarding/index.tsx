@@ -9,7 +9,7 @@ import {
   ScrollView,
   Platform 
 } from 'react-native';
-import { Camera, Upload, Sparkles, ArrowRight } from 'lucide-react-native';
+import { Camera, Upload, Sparkles, ArrowRight, Link as LinkIcon } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import { CameraView, useCameraPermissions } from 'expo-camera';
@@ -19,14 +19,17 @@ const platforms = [
   { id: 'tiktok', name: 'TikTok', color: '#000' },
   { id: 'youtube', name: 'YouTube', color: '#FF0000' },
   { id: 'linkedin', name: 'LinkedIn', color: '#0077B5' },
+  { id: 'twitter', name: 'Twitter/X', color: '#1DA1F2' },
+  { id: 'facebook', name: 'Facebook', color: '#1877F2' },
 ];
 
 export default function OnboardingScreen() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [handle, setHandle] = useState('');
+  const [profileUrl, setProfileUrl] = useState('');
   const [selectedPlatform, setSelectedPlatform] = useState('');
-  const [uploadMethod, setUploadMethod] = useState<'screenshot' | 'handle' | null>(null);
+  const [uploadMethod, setUploadMethod] = useState<'screenshot' | 'handle' | 'url' | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
 
@@ -52,14 +55,13 @@ export default function OnboardingScreen() {
         return;
       }
     }
-    // Camera implementation would go here
     setUploadMethod('screenshot');
     setStep(2);
   };
 
   const handleAnalysis = async () => {
-    if (!selectedPlatform || (!handle && uploadMethod !== 'screenshot')) {
-      Alert.alert('Missing information', 'Please select a platform and provide your handle or screenshot.');
+    if (!selectedPlatform || (!handle && !profileUrl && uploadMethod !== 'screenshot')) {
+      Alert.alert('Missing information', 'Please select a platform and provide your handle, URL, or screenshot.');
       return;
     }
 
@@ -75,14 +77,18 @@ export default function OnboardingScreen() {
   const renderStep1 = () => (
     <View className="flex-1 bg-dark px-6 pt-20">
       <View className="items-center mb-12">
-        <View className="w-20 h-20 bg-primary rounded-full items-center justify-center mb-6">
-          <Sparkles size={40} color="#1a1a1a" />
+        <View className="w-20 h-20 mb-6">
+          <Image 
+            source={{ uri: '/assets/images/Leonardo_Phoenix_10_Create_a_captivating_brand_logo_for_a_soci_3.jpg' }}
+            className="w-full h-full rounded-2xl"
+            resizeMode="contain"
+          />
         </View>
         <Text className="text-4xl font-inter-bold text-white text-center mb-4">
-          Welcome to Zobo-ai
+          Welcome to MoonWay
         </Text>
         <Text className="text-lg font-inter-regular text-gray-300 text-center">
-          AI-powered social media optimization
+          Let's optimize your social media presence
         </Text>
       </View>
 
@@ -96,11 +102,11 @@ export default function OnboardingScreen() {
             setUploadMethod('handle');
             setStep(2);
           }}
-          className="bg-dark-secondary p-6 rounded-2xl border border-gray-600 active:bg-dark-tertiary"
+          className="bg-dark-secondary p-6 rounded-2xl border border-gray-purple active:bg-dark-tertiary"
         >
           <View className="flex-row items-center">
             <View className="w-12 h-12 bg-primary/20 rounded-xl items-center justify-center mr-4">
-              <Text className="text-2xl">@</Text>
+              <Text className="text-2xl text-primary">@</Text>
             </View>
             <View className="flex-1">
               <Text className="text-lg font-inter-semibold text-white">Enter Handle</Text>
@@ -108,17 +114,38 @@ export default function OnboardingScreen() {
                 Provide your social media username
               </Text>
             </View>
-            <ArrowRight size={20} color="#6BD099" />
+            <ArrowRight size={20} color="#6ec3ec" />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            setUploadMethod('url');
+            setStep(2);
+          }}
+          className="bg-dark-secondary p-6 rounded-2xl border border-gray-purple active:bg-dark-tertiary"
+        >
+          <View className="flex-row items-center">
+            <View className="w-12 h-12 bg-secondary/20 rounded-xl items-center justify-center mr-4">
+              <LinkIcon size={24} color="#b5bff5" />
+            </View>
+            <View className="flex-1">
+              <Text className="text-lg font-inter-semibold text-white">Enter Profile URL</Text>
+              <Text className="text-gray-400 font-inter-regular">
+                Paste your complete profile link
+              </Text>
+            </View>
+            <ArrowRight size={20} color="#6ec3ec" />
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={handleImagePicker}
-          className="bg-dark-secondary p-6 rounded-2xl border border-gray-600 active:bg-dark-tertiary"
+          className="bg-dark-secondary p-6 rounded-2xl border border-gray-purple active:bg-dark-tertiary"
         >
           <View className="flex-row items-center">
-            <View className="w-12 h-12 bg-secondary/20 rounded-xl items-center justify-center mr-4">
-              <Upload size={24} color="#A3E4C4" />
+            <View className="w-12 h-12 bg-accent/20 rounded-xl items-center justify-center mr-4">
+              <Upload size={24} color="#616dce" />
             </View>
             <View className="flex-1">
               <Text className="text-lg font-inter-semibold text-white">Upload Screenshot</Text>
@@ -126,17 +153,17 @@ export default function OnboardingScreen() {
                 Upload a profile screenshot
               </Text>
             </View>
-            <ArrowRight size={20} color="#6BD099" />
+            <ArrowRight size={20} color="#6ec3ec" />
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={handleCameraCapture}
-          className="bg-dark-secondary p-6 rounded-2xl border border-gray-600 active:bg-dark-tertiary"
+          className="bg-dark-secondary p-6 rounded-2xl border border-gray-purple active:bg-dark-tertiary"
         >
           <View className="flex-row items-center">
-            <View className="w-12 h-12 bg-accent/20 rounded-xl items-center justify-center mr-4">
-              <Camera size={24} color="#E6FFF2" />
+            <View className="w-12 h-12 bg-purple-light/20 rounded-xl items-center justify-center mr-4">
+              <Camera size={24} color="#635b94" />
             </View>
             <View className="flex-1">
               <Text className="text-lg font-inter-semibold text-white">Take Photo</Text>
@@ -144,7 +171,7 @@ export default function OnboardingScreen() {
                 Capture your profile with camera
               </Text>
             </View>
-            <ArrowRight size={20} color="#6BD099" />
+            <ArrowRight size={20} color="#6ec3ec" />
           </View>
         </TouchableOpacity>
       </View>
@@ -166,7 +193,7 @@ export default function OnboardingScreen() {
         <Text className="text-lg font-inter-semibold text-white mb-4">
           Select Platform
         </Text>
-        <View className="space-y-3">
+        <View className="grid grid-cols-2 gap-3">
           {platforms.map((platform) => (
             <TouchableOpacity
               key={platform.id}
@@ -174,7 +201,7 @@ export default function OnboardingScreen() {
               className={`p-4 rounded-xl border-2 ${
                 selectedPlatform === platform.id
                   ? 'border-primary bg-primary/10'
-                  : 'border-gray-600 bg-dark-secondary'
+                  : 'border-gray-purple bg-dark-secondary'
               }`}
             >
               <Text className="text-white font-inter-medium text-center">
@@ -194,8 +221,25 @@ export default function OnboardingScreen() {
             value={handle}
             onChangeText={setHandle}
             placeholder="@yourusername"
-            placeholderTextColor="#888"
-            className="bg-dark-secondary border border-gray-600 rounded-xl p-4 text-white font-inter-regular text-lg"
+            placeholderTextColor="#718096"
+            className="bg-dark-secondary border border-gray-purple rounded-xl p-4 text-white font-inter-regular text-lg"
+          />
+        </View>
+      )}
+
+      {uploadMethod === 'url' && (
+        <View className="mb-8">
+          <Text className="text-lg font-inter-semibold text-white mb-4">
+            Enter Profile URL
+          </Text>
+          <TextInput
+            value={profileUrl}
+            onChangeText={setProfileUrl}
+            placeholder="https://instagram.com/yourusername"
+            placeholderTextColor="#718096"
+            className="bg-dark-secondary border border-gray-purple rounded-xl p-4 text-white font-inter-regular text-lg"
+            autoCapitalize="none"
+            keyboardType="url"
           />
         </View>
       )}
@@ -205,7 +249,7 @@ export default function OnboardingScreen() {
         disabled={isAnalyzing}
         className={`p-4 rounded-xl ${
           isAnalyzing ? 'bg-gray-600' : 'bg-primary'
-        } items-center justify-center`}
+        } items-center justify-center mb-6`}
       >
         {isAnalyzing ? (
           <Text className="text-dark font-inter-semibold text-lg">
@@ -213,12 +257,24 @@ export default function OnboardingScreen() {
           </Text>
         ) : (
           <View className="flex-row items-center">
-            <Sparkles size={20} color="#1a1a1a" className="mr-2" />
+            <Sparkles size={20} color="#231c3c" className="mr-2" />
             <Text className="text-dark font-inter-semibold text-lg ml-2">
               Start AI Analysis
             </Text>
           </View>
         )}
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => router.replace('/(tabs)')}
+        className="bg-dark-secondary border border-secondary rounded-xl p-4 items-center mb-8"
+      >
+        <Text className="text-secondary font-inter-semibold">
+          Skip for Now
+        </Text>
+        <Text className="text-gray-400 font-inter-regular text-sm mt-1">
+          You can analyze your profile later
+        </Text>
       </TouchableOpacity>
     </ScrollView>
   );

@@ -7,13 +7,15 @@ import {
   TextInput,
   Image
 } from 'react-native';
-import { Users, Search, TrendingUp, Eye, Heart, MessageCircle, Share2, ChartBar as BarChart3, Clock } from 'lucide-react-native';
+import { Users, Search, TrendingUp, Eye, Heart, MessageCircle, Share2, BarChart3, Clock } from 'lucide-react-native';
 
 const platforms = [
   { id: 'instagram', name: 'Instagram' },
   { id: 'tiktok', name: 'TikTok' },
   { id: 'youtube', name: 'YouTube' },
   { id: 'linkedin', name: 'LinkedIn' },
+  { id: 'twitter', name: 'Twitter/X' },
+  { id: 'facebook', name: 'Facebook' },
 ];
 
 const competitorData = {
@@ -71,13 +73,13 @@ const competitorData = {
   ]
 };
 
-const MetricCard = ({ title, value, icon: Icon, color = '#6BD099' }: {
+const MetricCard = ({ title, value, icon: Icon, color = '#6ec3ec' }: {
   title: string;
   value: string;
   icon: any;
   color?: string;
 }) => (
-  <View className="bg-dark-secondary p-4 rounded-xl border border-gray-700 items-center">
+  <View className="bg-dark-secondary p-4 rounded-xl border border-gray-purple items-center">
     <View 
       className="w-10 h-10 rounded-lg items-center justify-center mb-2"
       style={{ backgroundColor: `${color}20` }}
@@ -90,7 +92,7 @@ const MetricCard = ({ title, value, icon: Icon, color = '#6BD099' }: {
 );
 
 const PostCard = ({ post }: { post: typeof competitorData.recentPosts[0] }) => (
-  <View className="bg-dark-secondary rounded-xl border border-gray-700 overflow-hidden mb-4">
+  <View className="bg-dark-secondary rounded-xl border border-gray-purple overflow-hidden mb-4">
     <Image 
       source={{ uri: post.image }}
       className="w-full h-48"
@@ -104,15 +106,15 @@ const PostCard = ({ post }: { post: typeof competitorData.recentPosts[0] }) => (
       
       <View className="flex-row justify-between">
         <View className="flex-row items-center">
-          <Heart size={16} color="#FF6B6B" />
+          <Heart size={16} color="#6ec3ec" />
           <Text className="text-gray-300 font-inter-medium ml-1 mr-4">{post.likes}</Text>
         </View>
         <View className="flex-row items-center">
-          <MessageCircle size={16} color="#4ECDC4" />
+          <MessageCircle size={16} color="#b5bff5" />
           <Text className="text-gray-300 font-inter-medium ml-1 mr-4">{post.comments}</Text>
         </View>
         <View className="flex-row items-center">
-          <Share2 size={16} color="#A3E4C4" />
+          <Share2 size={16} color="#616dce" />
           <Text className="text-gray-300 font-inter-medium ml-1">{post.shares}</Text>
         </View>
       </View>
@@ -124,13 +126,12 @@ export default function CompetitorScreen() {
   const [selectedPlatform, setSelectedPlatform] = useState('instagram');
   const [searchHandle, setSearchHandle] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [hasResults, setHasResults] = useState(true); // Set to true to show mock data
+  const [hasResults, setHasResults] = useState(true);
 
   const handleAnalyze = () => {
     if (!searchHandle.trim()) return;
     
     setIsAnalyzing(true);
-    // Simulate analysis
     setTimeout(() => {
       setIsAnalyzing(false);
       setHasResults(true);
@@ -150,7 +151,7 @@ export default function CompetitorScreen() {
             </Text>
           </View>
           <View className="w-12 h-12 bg-primary/20 rounded-xl items-center justify-center">
-            <Users size={24} color="#6BD099" />
+            <Users size={24} color="#6ec3ec" />
           </View>
         </View>
 
@@ -170,7 +171,7 @@ export default function CompetitorScreen() {
                     className={`px-4 py-2 rounded-xl border ${
                       isSelected 
                         ? 'bg-primary border-primary' 
-                        : 'bg-dark-secondary border-gray-700'
+                        : 'bg-dark-secondary border-gray-purple'
                     }`}
                   >
                     <Text className={`font-inter-semibold ${
@@ -196,8 +197,8 @@ export default function CompetitorScreen() {
                 value={searchHandle}
                 onChangeText={setSearchHandle}
                 placeholder="@username"
-                placeholderTextColor="#888"
-                className="bg-dark-secondary border border-gray-700 rounded-xl p-4 text-white font-inter-regular"
+                placeholderTextColor="#718096"
+                className="bg-dark-secondary border border-gray-purple rounded-xl p-4 text-white font-inter-regular"
               />
             </View>
             <TouchableOpacity
@@ -210,7 +211,7 @@ export default function CompetitorScreen() {
               {isAnalyzing ? (
                 <Text className="text-dark font-inter-semibold">...</Text>
               ) : (
-                <Search size={20} color="#1a1a1a" />
+                <Search size={20} color="#231c3c" />
               )}
             </TouchableOpacity>
           </View>
@@ -224,7 +225,7 @@ export default function CompetitorScreen() {
             <Text className="text-xl font-inter-bold text-white mb-4">
               Profile Overview
             </Text>
-            <View className="bg-dark-secondary p-6 rounded-2xl border border-gray-700 mb-4">
+            <View className="bg-dark-secondary p-6 rounded-2xl border border-gray-purple mb-4">
               <View className="flex-row items-center justify-between mb-4">
                 <Text className="text-2xl font-inter-bold text-white">
                   {competitorData.profile.username}
@@ -241,18 +242,19 @@ export default function CompetitorScreen() {
                   title="Followers"
                   value={competitorData.profile.followers}
                   icon={Users}
+                  color="#6ec3ec"
                 />
                 <MetricCard
                   title="Avg Views"
                   value={competitorData.profile.avgViews}
                   icon={Eye}
-                  color="#A3E4C4"
+                  color="#b5bff5"
                 />
                 <MetricCard
                   title="Engagement"
                   value={competitorData.profile.engagementRate}
                   icon={Heart}
-                  color="#E6FFF2"
+                  color="#616dce"
                 />
               </View>
             </View>
@@ -267,10 +269,10 @@ export default function CompetitorScreen() {
               {competitorData.insights.map((insight, index) => (
                 <View 
                   key={index}
-                  className="bg-dark-secondary p-4 rounded-xl border border-gray-700 flex-row items-center"
+                  className="bg-dark-secondary p-4 rounded-xl border border-gray-purple flex-row items-center"
                 >
                   <View className="w-10 h-10 bg-primary/20 rounded-lg items-center justify-center mr-4">
-                    <insight.icon size={20} color="#6BD099" />
+                    <insight.icon size={20} color="#6ec3ec" />
                   </View>
                   <View className="flex-1">
                     <Text className="text-white font-inter-semibold">{insight.title}</Text>

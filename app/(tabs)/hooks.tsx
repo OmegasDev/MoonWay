@@ -74,7 +74,6 @@ const HookCard = ({ hook }: { hook: typeof viralHooks[0] }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleCopy = async () => {
-    // Copy to clipboard implementation would go here
     console.log('Copied:', hook.text);
   };
 
@@ -89,7 +88,7 @@ const HookCard = ({ hook }: { hook: typeof viralHooks[0] }) => {
   };
 
   return (
-    <View className="bg-dark-secondary p-6 rounded-2xl border border-gray-700 mb-4">
+    <View className="bg-dark-secondary p-6 rounded-2xl border border-gray-purple mb-4">
       <View className="flex-row items-start justify-between mb-4">
         <View className="flex-1 mr-4">
           <Text className="text-white font-inter-medium text-lg leading-6">
@@ -99,7 +98,7 @@ const HookCard = ({ hook }: { hook: typeof viralHooks[0] }) => {
         {hook.trending && (
           <View className="bg-primary/20 px-2 py-1 rounded-full">
             <View className="flex-row items-center">
-              <TrendingUp size={12} color="#6BD099" />
+              <TrendingUp size={12} color="#6ec3ec" />
               <Text className="text-primary font-inter-semibold text-xs ml-1">
                 Trending
               </Text>
@@ -127,8 +126,8 @@ const HookCard = ({ hook }: { hook: typeof viralHooks[0] }) => {
           >
             <Heart 
               size={18} 
-              color={isLiked ? "#6BD099" : "#888"}
-              fill={isLiked ? "#6BD099" : "transparent"}
+              color={isLiked ? "#6ec3ec" : "#718096"}
+              fill={isLiked ? "#6ec3ec" : "transparent"}
             />
           </TouchableOpacity>
           
@@ -138,8 +137,8 @@ const HookCard = ({ hook }: { hook: typeof viralHooks[0] }) => {
           >
             <Bookmark 
               size={18} 
-              color={isSaved ? "#A3E4C4" : "#888"}
-              fill={isSaved ? "#A3E4C4" : "transparent"}
+              color={isSaved ? "#b5bff5" : "#718096"}
+              fill={isSaved ? "#b5bff5" : "transparent"}
             />
           </TouchableOpacity>
           
@@ -147,14 +146,14 @@ const HookCard = ({ hook }: { hook: typeof viralHooks[0] }) => {
             onPress={handleCopy}
             className="w-10 h-10 bg-dark-tertiary rounded-lg items-center justify-center"
           >
-            <Copy size={18} color="#888" />
+            <Copy size={18} color="#718096" />
           </TouchableOpacity>
           
           <TouchableOpacity
             onPress={handleShare}
             className="w-10 h-10 bg-primary rounded-lg items-center justify-center"
           >
-            <Share2 size={18} color="#1a1a1a" />
+            <Share2 size={18} color="#231c3c" />
           </TouchableOpacity>
         </View>
       </View>
@@ -185,7 +184,7 @@ export default function HooksScreen() {
             </Text>
           </View>
           <View className="w-12 h-12 bg-primary/20 rounded-xl items-center justify-center">
-            <Lightbulb size={24} color="#6BD099" />
+            <Lightbulb size={24} color="#6ec3ec" />
           </View>
         </View>
 
@@ -195,10 +194,10 @@ export default function HooksScreen() {
             value={searchQuery}
             onChangeText={setSearchQuery}
             placeholder="Search hooks..."
-            placeholderTextColor="#888"
-            className="bg-dark-secondary border border-gray-700 rounded-xl p-4 pl-12 text-white font-inter-regular"
+            placeholderTextColor="#718096"
+            className="bg-dark-secondary border border-gray-purple rounded-xl p-4 pl-12 text-white font-inter-regular"
           />
-          <Search size={20} color="#888" className="absolute left-4 top-4" />
+          <Search size={20} color="#718096" className="absolute left-4 top-4" />
         </View>
 
         {/* Categories */}
@@ -213,7 +212,7 @@ export default function HooksScreen() {
                   className={`px-4 py-2 rounded-xl border ${
                     isSelected 
                       ? 'bg-primary border-primary' 
-                      : 'bg-dark-secondary border-gray-700'
+                      : 'bg-dark-secondary border-gray-purple'
                   }`}
                 >
                   <View className="flex-row items-center">

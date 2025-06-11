@@ -6,14 +6,14 @@ import {
   TouchableOpacity,
   TextInput
 } from 'react-native';
-import { Calendar, Plus, Clock, Image as ImageIcon, Video, Mic, MoveHorizontal as MoreHorizontal } from 'lucide-react-native';
+import { Calendar, Plus, Clock, Image as ImageIcon, Video, Mic, MoreHorizontal } from 'lucide-react-native';
 
 const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 const contentTypes = [
-  { id: 'image', name: 'Image', icon: ImageIcon, color: '#6BD099' },
-  { id: 'video', name: 'Video', icon: Video, color: '#A3E4C4' },
-  { id: 'story', name: 'Story', icon: Mic, color: '#E6FFF2' },
+  { id: 'image', name: 'Image', icon: ImageIcon, color: '#6ec3ec' },
+  { id: 'video', name: 'Video', icon: Video, color: '#b5bff5' },
+  { id: 'story', name: 'Story', icon: Mic, color: '#616dce' },
 ];
 
 const mockPosts = [
@@ -54,10 +54,10 @@ const mockPosts = [
 const PostCard = ({ post }: { post: typeof mockPosts[0] }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'scheduled': return '#6BD099';
-      case 'draft': return '#F59E0B';
-      case 'idea': return '#8B5CF6';
-      default: return '#6B7280';
+      case 'scheduled': return '#6ec3ec';
+      case 'draft': return '#b5bff5';
+      case 'idea': return '#616dce';
+      default: return '#718096';
     }
   };
 
@@ -68,11 +68,11 @@ const PostCard = ({ post }: { post: typeof mockPosts[0] }) => {
   };
 
   return (
-    <View className="bg-dark-secondary p-4 rounded-xl border border-gray-700 mb-3">
+    <View className="bg-dark-secondary p-4 rounded-xl border border-gray-purple mb-3">
       <View className="flex-row items-center justify-between mb-2">
         <View className="flex-row items-center">
           <View className="w-8 h-8 bg-primary/20 rounded-lg items-center justify-center mr-3">
-            {React.createElement(getTypeIcon(post.type), { size: 16, color: '#6BD099' })}
+            {React.createElement(getTypeIcon(post.type), { size: 16, color: '#6ec3ec' })}
           </View>
           <View>
             <Text className="text-white font-inter-semibold">{post.title}</Text>
@@ -94,7 +94,7 @@ const PostCard = ({ post }: { post: typeof mockPosts[0] }) => {
             </Text>
           </View>
           <TouchableOpacity>
-            <MoreHorizontal size={16} color="#888" />
+            <MoreHorizontal size={16} color="#718096" />
           </TouchableOpacity>
         </View>
       </View>
@@ -123,7 +123,7 @@ export default function PlannerScreen() {
           onPress={() => setShowAddPost(true)}
           className="w-12 h-12 bg-primary rounded-xl items-center justify-center"
         >
-          <Plus size={24} color="#1a1a1a" />
+          <Plus size={24} color="#231c3c" />
         </TouchableOpacity>
       </View>
 
@@ -141,7 +141,7 @@ export default function PlannerScreen() {
                   onPress={() => setSelectedDay(day)}
                   className={`items-center p-4 rounded-xl min-w-[80px] ${
                     isSelected ? 'bg-primary' : 'bg-dark-secondary'
-                  } border ${isSelected ? 'border-primary' : 'border-gray-700'}`}
+                  } border ${isSelected ? 'border-primary' : 'border-gray-purple'}`}
                 >
                   <Text className={`font-inter-semibold mb-1 ${
                     isSelected ? 'text-dark' : 'text-white'
@@ -173,7 +173,7 @@ export default function PlannerScreen() {
           {contentTypes.map((type) => (
             <TouchableOpacity
               key={type.id}
-              className="flex-1 bg-dark-secondary p-4 rounded-xl border border-gray-700 items-center"
+              className="flex-1 bg-dark-secondary p-4 rounded-xl border border-gray-purple items-center"
             >
               <View 
                 className="w-10 h-10 rounded-lg items-center justify-center mb-2"
@@ -200,8 +200,8 @@ export default function PlannerScreen() {
             <PostCard key={post.id} post={post} />
           ))
         ) : (
-          <View className="bg-dark-secondary p-8 rounded-xl border border-gray-700 items-center">
-            <Calendar size={48} color="#6BD099" className="mb-4" />
+          <View className="bg-dark-secondary p-8 rounded-xl border border-gray-purple items-center">
+            <Calendar size={48} color="#6ec3ec" className="mb-4" />
             <Text className="text-white font-inter-semibold text-lg mb-2">
               No posts scheduled
             </Text>

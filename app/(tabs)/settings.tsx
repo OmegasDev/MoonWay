@@ -4,9 +4,11 @@ import {
   Text, 
   ScrollView, 
   TouchableOpacity,
-  Switch
+  Switch,
+  Image
 } from 'react-native';
-import { Settings as SettingsIcon, User, Bell, Shield, CreditCard, CircleHelp as HelpCircle, LogOut, ChevronRight, Crown, Smartphone, Moon } from 'lucide-react-native';
+import { Settings as SettingsIcon, User, Bell, Shield, CreditCard, HelpCircle, LogOut, ChevronRight, Crown, Smartphone, Moon, Upload } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
 
 const SettingItem = ({ 
   title, 
@@ -25,11 +27,11 @@ const SettingItem = ({
 }) => (
   <TouchableOpacity
     onPress={onPress}
-    className="bg-dark-secondary p-4 rounded-xl border border-gray-700 mb-3 active:bg-dark-tertiary"
+    className="bg-dark-secondary p-4 rounded-xl border border-gray-purple mb-3 active:bg-dark-tertiary"
   >
     <View className="flex-row items-center">
       <View className="w-10 h-10 bg-primary/20 rounded-lg items-center justify-center mr-4">
-        <Icon size={20} color="#6BD099" />
+        <Icon size={20} color="#6ec3ec" />
       </View>
       
       <View className="flex-1">
@@ -40,7 +42,7 @@ const SettingItem = ({
       </View>
       
       {rightElement || (showChevron && (
-        <ChevronRight size={20} color="#888" />
+        <ChevronRight size={20} color="#718096" />
       ))}
     </View>
   </TouchableOpacity>
@@ -64,7 +66,7 @@ const PricingCard = ({
   <View className={`p-6 rounded-2xl border-2 mb-4 ${
     isPopular 
       ? 'border-primary bg-primary/5' 
-      : 'border-gray-700 bg-dark-secondary'
+      : 'border-gray-purple bg-dark-secondary'
   }`}>
     {isPopular && (
       <View className="bg-primary px-3 py-1 rounded-full self-start mb-3">
@@ -74,7 +76,7 @@ const PricingCard = ({
     
     <View className="flex-row items-center mb-2">
       <Text className="text-2xl font-inter-bold text-white">{title}</Text>
-      {title === 'Pro+' && <Crown size={20} color="#6BD099" className="ml-2" />}
+      {title === 'Pro+' && <Crown size={20} color="#6ec3ec" className="ml-2" />}
     </View>
     
     <Text className="text-3xl font-inter-bold text-primary mb-4">
@@ -114,6 +116,7 @@ const PricingCard = ({
 );
 
 export default function SettingsScreen() {
+  const router = useRouter();
   const [darkMode, setDarkMode] = useState(true);
   const [notifications, setNotifications] = useState(true);
   const [showPricing, setShowPricing] = useState(false);
@@ -185,16 +188,22 @@ export default function SettingsScreen() {
   return (
     <ScrollView className="flex-1 bg-dark px-6 pt-16">
       <View className="flex-row items-center justify-between mb-8">
-        <View>
-          <Text className="text-3xl font-inter-bold text-white mb-2">
-            Settings
-          </Text>
+        <View className="flex-1">
+          <View className="flex-row items-center mb-2">
+            <View className="w-10 h-10 mr-3">
+              <Image 
+                source={{ uri: '/assets/images/Leonardo_Phoenix_10_Create_a_captivating_brand_logo_for_a_soci_3.jpg' }}
+                className="w-full h-full rounded-lg"
+                resizeMode="contain"
+              />
+            </View>
+            <Text className="text-3xl font-inter-bold text-white">
+              MoonWay Settings
+            </Text>
+          </View>
           <Text className="text-gray-300 font-inter-regular">
             Manage your account and preferences
           </Text>
-        </View>
-        <View className="w-12 h-12 bg-primary/20 rounded-xl items-center justify-center">
-          <SettingsIcon size={24} color="#6BD099" />
         </View>
       </View>
 
@@ -209,6 +218,18 @@ export default function SettingsScreen() {
           subtitle="Update your personal information"
           icon={User}
           onPress={() => {}}
+        />
+        
+        <SettingItem
+          title="Profile Analysis"
+          subtitle="Upload screenshot or enter URL for analysis"
+          icon={Upload}
+          onPress={() => router.push('/onboarding')}
+          rightElement={
+            <View className="bg-secondary/20 px-2 py-1 rounded-full">
+              <Text className="text-secondary font-inter-semibold text-xs">Analyze</Text>
+            </View>
+          }
         />
         
         <SettingItem
@@ -240,8 +261,8 @@ export default function SettingsScreen() {
             <Switch
               value={notifications}
               onValueChange={setNotifications}
-              trackColor={{ false: '#374151', true: '#6BD099' }}
-              thumbColor={notifications ? '#1a1a1a' : '#f4f3f4'}
+              trackColor={{ false: '#463e69', true: '#6ec3ec' }}
+              thumbColor={notifications ? '#231c3c' : '#f4f3f4'}
             />
           }
         />
@@ -256,8 +277,8 @@ export default function SettingsScreen() {
             <Switch
               value={darkMode}
               onValueChange={setDarkMode}
-              trackColor={{ false: '#374151', true: '#6BD099' }}
-              thumbColor={darkMode ? '#1a1a1a' : '#f4f3f4'}
+              trackColor={{ false: '#463e69', true: '#6ec3ec' }}
+              thumbColor={darkMode ? '#231c3c' : '#f4f3f4'}
             />
           }
         />
@@ -297,7 +318,7 @@ export default function SettingsScreen() {
           title="Sign Out"
           subtitle="Sign out of your account"
           icon={LogOut}
-          onPress={() => {}}
+          onPress={() => router.replace('/auth')}
           showChevron={false}
         />
       </View>
