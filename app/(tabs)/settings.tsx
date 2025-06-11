@@ -192,7 +192,7 @@ export default function SettingsScreen() {
           <View className="flex-row items-center mb-2">
             <View className="w-10 h-10 mr-3">
               <Image 
-                source={{ uri: '/assets/images/Leonardo_Phoenix_10_Create_a_captivating_brand_logo_for_a_soci_3.jpg' }}
+                source={require('../../assets/images/Leonardo_Phoenix_10_Create_a_captivating_brand_logo_for_a_soci_3.jpg')}
                 className="w-full h-full rounded-lg"
                 resizeMode="contain"
               />

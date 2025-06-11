@@ -79,7 +79,7 @@ export default function OnboardingScreen() {
       <View className="items-center mb-12">
         <View className="w-20 h-20 mb-6">
           <Image 
-            source={{ uri: '/assets/images/Leonardo_Phoenix_10_Create_a_captivating_brand_logo_for_a_soci_3.jpg' }}
+            source={require('../../assets/images/Leonardo_Phoenix_10_Create_a_captivating_brand_logo_for_a_soci_3.jpg')}
             className="w-full h-full rounded-2xl"
             resizeMode="contain"
           />
