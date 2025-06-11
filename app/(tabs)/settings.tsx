@@ -7,7 +7,7 @@ import {
   Switch,
   Image
 } from 'react-native';
-import { Settings as SettingsIcon, User, Bell, Shield, CreditCard, HelpCircle, LogOut, ChevronRight, Crown, Smartphone, Moon, Upload } from 'lucide-react-native';
+import { Settings as SettingsIcon, User, Bell, Shield, CreditCard, CircleHelp as HelpCircle, LogOut, ChevronRight, Crown, Smartphone, Moon, Upload } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 
 const SettingItem = ({ 

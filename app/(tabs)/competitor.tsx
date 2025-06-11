@@ -7,7 +7,7 @@ import {
   TextInput,
   Image
 } from 'react-native';
-import { Users, Search, TrendingUp, Eye, Heart, MessageCircle, Share2, BarChart3, Clock } from 'lucide-react-native';
+import { Users, Search, TrendingUp, Eye, Heart, MessageCircle, Share2, ChartBar as BarChart3, Clock } from 'lucide-react-native';
 
 const platforms = [
   { id: 'instagram', name: 'Instagram' },

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   TextInput
 } from 'react-native';
-import { Calendar, Plus, Clock, Image as ImageIcon, Video, Mic, MoreHorizontal } from 'lucide-react-native';
+import { Calendar, Plus, Clock, Image as ImageIcon, Video, Mic, MoveHorizontal as MoreHorizontal } from 'lucide-react-native';
 
 const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
