@@ -25,7 +25,18 @@ export default function AuthScreen() {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleAuth = async () => {
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    
+    // Simulate Google Sign-In
+    setTimeout(() => {
+      setIsLoading(false);
+      // Navigate to upload page for new users or dashboard for returning users
+      router.replace('/upload');
+    }, 2000);
+  };
+
+  const handleEmailAuth = async () => {
     if (!formData.email || !formData.password) {
       Alert.alert('Error', 'Please fill in all required fields');
       return;
@@ -41,13 +52,8 @@ export default function AuthScreen() {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      // For demo purposes, always succeed
-      router.replace('/onboarding');
+      router.replace('/upload');
     }, 2000);
-  };
-
-  const handleSkipToDemo = () => {
-    router.replace('/(tabs)');
   };
 
   return (
@@ -72,12 +78,27 @@ export default function AuthScreen() {
             <Text className="text-lg font-inter-regular text-gray-300 text-center">
               {isLogin ? 'Welcome back!' : 'Join the journey'}
             </Text>
-            <Text className="text-sm font-inter-regular text-gray-400 text-center mt-2">
-              AI-powered social media optimization
-            </Text>
           </View>
 
-          {/* Auth Form */}
+          {/* Google Sign In Button */}
+          <TouchableOpacity
+            onPress={handleGoogleSignIn}
+            disabled={isLoading}
+            className="bg-white p-4 rounded-xl items-center justify-center mb-6 flex-row"
+          >
+            <Text className="text-dark font-inter-semibold text-lg">
+              {isLoading ? 'Signing in...' : `Continue with Google`}
+            </Text>
+          </TouchableOpacity>
+
+          {/* Divider */}
+          <View className="flex-row items-center mb-6">
+            <View className="flex-1 h-px bg-gray-purple" />
+            <Text className="text-gray-400 font-inter-regular mx-4">or</Text>
+            <View className="flex-1 h-px bg-gray-purple" />
+          </View>
+
+          {/* Email Form */}
           <View className="space-y-6">
             {!isLogin && (
               <View>
@@ -153,9 +174,9 @@ export default function AuthScreen() {
               </View>
             )}
 
-            {/* Auth Button */}
+            {/* Email Auth Button */}
             <TouchableOpacity
-              onPress={handleAuth}
+              onPress={handleEmailAuth}
               disabled={isLoading}
               className={`p-4 rounded-xl ${
                 isLoading ? 'bg-gray-600' : 'bg-primary'
@@ -177,21 +198,6 @@ export default function AuthScreen() {
               <TouchableOpacity onPress={() => setIsLogin(!isLogin)}>
                 <Text className="text-primary font-inter-semibold">
                   {isLogin ? 'Sign Up' : 'Sign In'}
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            {/* Demo Access */}
-            <View className="mt-8 pt-6 border-t border-gray-purple">
-              <TouchableOpacity
-                onPress={handleSkipToDemo}
-                className="bg-dark-secondary border border-secondary rounded-xl p-4 items-center"
-              >
-                <Text className="text-secondary font-inter-semibold">
-                  Continue as Guest
-                </Text>
-                <Text className="text-gray-400 font-inter-regular text-sm mt-1">
-                  Explore the app without signing up
                 </Text>
               </TouchableOpacity>
             </View>
